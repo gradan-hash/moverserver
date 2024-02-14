@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import AuthRoute from "./routes/users/Auth.js"
 
 const app = express();
 dotenv.config();

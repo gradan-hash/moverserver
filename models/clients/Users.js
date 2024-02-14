@@ -6,7 +6,6 @@ const userSchema = new Schema(
     username: {
       type: String,
       required: true,
-      
     },
     email: {
       type: String,
@@ -25,10 +24,10 @@ const userSchema = new Schema(
     phonenumber: {
       type: String,
       required: true,
-      unique:true
+      unique: true,
     },
   },
   { timestamps: true }
 );
 
-export default mongoose.model("User", userSchema);
+export default mongoose.model("user", userSchema);

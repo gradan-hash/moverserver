@@ -1,5 +1,5 @@
 import express from "express";
-import user from "../../models/users/user.model.js";
+import user from "../../models/clients/Users.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import createError from "../../utils/createError.js";
