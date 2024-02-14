@@ -6,12 +6,16 @@ import createError from "../../utils/createError.js";
 
 export const register = async (req, res, next) => {
   try {
+   
+
     const hash = bcrypt.hashSync(req.body.password, 5);
     const newUser = new user({
-      ...req.body,
+      username: req.body.username,
+      email: req.body.email,
+      phonenumber: req.body.phonenumber,
       password: hash,
     });
-
+    // console.log(newUser);
     await newUser.save();
     res.status(200).send("success");
   } catch (err) {
