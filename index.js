@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import AuthRoute from "./routes/users/Auth.js";
-
+import AuthRoutePro from "./routes/providers/Authprovider.js";
 const app = express();
 dotenv.config();
 mongoose.set("strictQuery", true);
@@ -31,6 +31,9 @@ app.use(cookieParser());
 //clients
 
 app.use("/api/clients", AuthRoute);
+
+//providers
+app.use("/api/providers", AuthRoutePro);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

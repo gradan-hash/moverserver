@@ -1,5 +1,4 @@
-
-import user from "../../models/clients/Users.js";
+import Provider from "../../models/providers/Providers.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import createError from "../../utils/createError.js";
@@ -7,14 +6,12 @@ import createError from "../../utils/createError.js";
 export const register = async (req, res, next) => {
   try {
     const hash = bcrypt.hashSync(req.body.password, 5);
-    const newUser = new user({
-      username: req.body.username,
-      email: req.body.email,
-      phonenumber: req.body.phonenumber,
+    const newProvider = new Provider({
+      ...req.body,
       password: hash,
     });
     // console.log(newUser);
-    await newUser.save();
+    await newProvider.save();
     res.status(200).send("success");
   } catch (err) {
     next(err);
@@ -24,20 +21,20 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     // Attempt to find the user by email
-    const User = await user.findOne({ email: req.body.email });
+    const ProviderL = await Provider.findOne({ email: req.body.email });
 
     // If no user is found, return a 404 error
-    if (!User) return next(createError(404, "user not found"));
+    if (!ProviderL) return next(createError(404, "Provider not found"));
 
     // Check if the provided password matches the stored hash
-    const isCorrect = bcrypt.compareSync(req.body.password, User.password);
+    const isCorrect = bcrypt.compareSync(req.body.password, ProviderL.password);
     if (!isCorrect) return next(createError(400, "wrong password or email"));
 
     // Generate a JWT token for the user
-    const token = jwt.sign({ id: User._id }, process.env.JWT_KEY);
+    const token = jwt.sign({ id: ProviderL._id }, process.env.JWT_KEY);
 
     // Exclude the password from the user object to be sent back
-    const { password, ...info } = User._doc;
+    const { password, ...info } = ProviderL._doc;
 
     // Send the token in a cookie and the user info in the response body
     res
