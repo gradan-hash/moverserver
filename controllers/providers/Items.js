@@ -101,18 +101,18 @@ export const getProducts = async (req, res, next) => {
     const sortBy = req.params.sortby;
 
     // Get all products
-    let products = await Products.find();
+    let items = await Items.find();
 
     // Check the sortBy parameter
     if (sortBy === "highestPrice") {
-      products.sort((a, b) => b.price - a.price);
+      items.sort((a, b) => b.price - a.price);
     } else if (sortBy === "lowestPrice") {
-      products.sort((a, b) => a.price - b.price);
+      items.sort((a, b) => a.price - b.price);
     } else if (sortBy === "latest") {
-      products.sort((a, b) => b.createdAt - a.createdAt);
+      items.sort((a, b) => b.createdAt - a.createdAt);
     }
 
-    res.status(200).json(products);
+    res.status(200).json(items);
   } catch (error) {
     next(error);
   }
