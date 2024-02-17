@@ -3,6 +3,7 @@ import Items from "../../models/providers/Provideritems.js";
 import createError from "../../utils/createError.js";
 
 export const createProducts = async (req, res, next) => {
+  console.log(req.body);
   const newItems = new Items({
     ...req.body,
   });
