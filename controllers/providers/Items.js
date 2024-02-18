@@ -33,7 +33,7 @@ export const singleProducts = async (req, res, next) => {
       items,
       providerdetails,
     };
-    console.log(response);
+    // console.log(response);
     res.status(200).send(response); // Sending the combined object as response
   } catch (err) {
     next(err);
