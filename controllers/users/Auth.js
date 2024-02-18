@@ -1,4 +1,3 @@
-
 import user from "../../models/clients/Users.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -8,9 +7,7 @@ export const register = async (req, res, next) => {
   try {
     const hash = bcrypt.hashSync(req.body.password, 5);
     const newUser = new user({
-      username: req.body.username,
-      email: req.body.email,
-      phonenumber: req.body.phonenumber,
+      ...req.body,
       password: hash,
     });
     // console.log(newUser);

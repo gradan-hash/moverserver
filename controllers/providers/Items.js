@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Items from "../../models/providers/Provideritems.js";
-import Users from "../../models/clients/Users.js";
+import Provider from "../../models/providers/Providers.js";
 import createError from "../../utils/createError.js";
 
 export const createProducts = async (req, res, next) => {
@@ -18,15 +18,23 @@ export const createProducts = async (req, res, next) => {
 };
 
 export const singleProducts = async (req, res, next) => {
-  // console.log(req.params.id);
   try {
     const items = await Items.findById(req.params.id);
-    // console.log(items);
-    const providerdetails = await Users.findById(items.ProviderId);
-    console.log(providerdetails);
+
+    // Assuming items is not null and has a valid ProviderId
+    const providerid = items.ProviderId;
+    const providerdetails = await Provider.findById(providerid);
+
+    // Check if items exists after fetching it
     if (!items) return next(createError("Product not found", 404));
 
-    res.status(200).send(items);
+    // Combining items and providerdetails into a single response object
+    const response = {
+      items,
+      providerdetails,
+    };
+    console.log(response);
+    res.status(200).send(response); // Sending the combined object as response
   } catch (err) {
     next(err);
   }
