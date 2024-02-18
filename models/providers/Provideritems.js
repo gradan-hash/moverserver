@@ -15,12 +15,20 @@ const ItemsSchema = new Schema(
       type: String,
       required: true,
     },
+    cartype: {
+      type: String,
+      required: true,
+    },
     description: {
       type: String,
       required: true,
     },
 
     imageURL: {
+      type: String,
+      required: true,
+    },
+    ProviderId: {
       type: String,
       required: true,
     },

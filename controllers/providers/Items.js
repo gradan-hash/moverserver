@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import Items from "../../models/providers/Provideritems.js";
+import Users from "../../models/clients/Users.js";
 import createError from "../../utils/createError.js";
 
 export const createProducts = async (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   const newItems = new Items({
     ...req.body,
   });
@@ -17,11 +18,15 @@ export const createProducts = async (req, res, next) => {
 };
 
 export const singleProducts = async (req, res, next) => {
+  // console.log(req.params.id);
   try {
     const items = await Items.findById(req.params.id);
+    // console.log(items);
+    const providerdetails = await Users.findById(items.ProviderId);
+    console.log(providerdetails);
     if (!items) return next(createError("Product not found", 404));
 
-    res.status(200).send(Items);
+    res.status(200).send(items);
   } catch (err) {
     next(err);
   }
@@ -98,7 +103,7 @@ export const searchProducts = async (req, res, next) => {
 
 export const getProducts = async (req, res, next) => {
   try {
-    console.log(req.params);
+    // console.log(req.params);
     const sortBy = req.params.sortby;
 
     // Get all products
