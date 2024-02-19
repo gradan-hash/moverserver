@@ -10,12 +10,17 @@ const MesssageSchema = new Schema({
     type: String,
     required: true,
   },
+  uniqueid: {
+    type: String,
+    required: true,
+  },
   Message: {
     type: String,
     required: true,
   },
 
-}{timestamps:true});
+},
+{timestamps:true});
 
 
 export default mongoose.model("Messages",MesssageSchema)
