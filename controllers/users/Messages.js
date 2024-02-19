@@ -3,21 +3,22 @@ import Providers from "../../models/providers/Providers.js";
 import Users from "../../models/clients/Users.js";
 
 export const createMessage = async (req, res, next) => {
-  
+  // console.log(req.body);
+
   const { clientid, providerid } = req.body;
 
   // Concatenate clientid and providerid to create a unique ID
   const uniqueid = `${clientid}${providerid}`;
 
-  
   const newMessage = new Messages({
     ...req.body,
-    uniqueid:uniqueid, 
+    uniqueid: uniqueid,
   });
 
   try {
     // Save the new message to the database
     const savedMessage = await newMessage.save();
+    // console.log(savedMessage);
     // Respond with the saved message
     res.status(200).json(savedMessage);
   } catch (err) {
@@ -26,16 +27,20 @@ export const createMessage = async (req, res, next) => {
   }
 };
 
-
-
-export const GetMessages = async(req, res,next)=>{
+export const GetMessages = async (req, res, next) => {
+  console.log(req.params.id);
   try {
-
-    const allmessages = await Messages.findById(req.params.id)
-    res.status(200).json(allmessages)
-
+    // Use findOne to search for messages by uniqueid field
+    const allmessages = await Messages.find({ uniqueid: req.params.id });
+    // console.log(allmessages);
+    if (allmessages) {
+      res.status(200).json(allmessages);
+    } else {
+      res
+        .status(404)
+        .json({ message: "No messages found with the provided unique ID." });
+    }
   } catch (err) {
-    next(err)
-    
+    next(err); // Forward the error to the error-handling middleware
   }
-}
+};
