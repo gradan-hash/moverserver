@@ -53,8 +53,6 @@ export const getProviderMessages = async (req, res, next) => {
   try {
     // Finding messages by provider ID
     const providerMessages = await Messages.find({ providerId: id });
-   
-    
 
     if (providerMessages.length > 0) {
       res.status(200).json(providerMessages);
