@@ -44,3 +44,18 @@ export const GetMessages = async (req, res, next) => {
     next(err); // Forward the error to the error-handling middleware
   }
 };
+
+export const Getprovidermessages = async (res, req, next) => {
+  try {
+    const providermessage = await Messages.find({ providerid: req.params.id });
+    if (providermessage) {
+      res.status(200).json(providermessage);
+    } else {
+      res
+        .status(404)
+        .json({ message: "No messages found with the provided unique ID" });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
