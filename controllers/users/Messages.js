@@ -45,15 +45,23 @@ export const GetMessages = async (req, res, next) => {
   }
 };
 
-export const Getprovidermessages = async (res, req, next) => {
+export const getProviderMessages = async (req, res, next) => {
+  // Destructure to get id directly from req.params
+  const { id } = req.params;
+  console.log(id);
+
   try {
-    const providermessage = await Messages.find({ providerid: req.params.id });
-    if (providermessage) {
-      res.status(200).json(providermessage);
+    // Finding messages by provider ID
+    const providerMessages = await Messages.find({ providerId: id });
+   
+    
+
+    if (providerMessages.length > 0) {
+      res.status(200).json(providerMessages);
     } else {
       res
         .status(404)
-        .json({ message: "No messages found with the provided unique ID" });
+        .json({ message: "No messages found with the provided unique ID." });
     }
   } catch (err) {
     next(err);
