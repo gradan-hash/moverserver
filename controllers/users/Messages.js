@@ -28,7 +28,7 @@ export const createMessage = async (req, res, next) => {
 
 
 
-export const GetMessages = async(req, res,next){
+export const GetMessages = async(req, res,next)=>{
   try {
 
     const allmessages = await Messages.findById(req.params.id)
