@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const MesssageSchema = new Schema(
+const MessageSchema = new Schema(
   {
     clientid: {
       type: String,
@@ -15,17 +15,28 @@ const MesssageSchema = new Schema(
       type: String,
       required: true,
     },
-    message: {
-      type: String,
-    },
-    replymesssage: {
-      type: String,
-    },
-    sender: {
-      type: String,
-    },
+    messages: [
+      {
+        message: String,
+        sender: String,
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    replies: [
+      {
+        replyMessage: String,
+        sender: String,
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
 
-export default mongoose.model("Messages", MesssageSchema);
+export default mongoose.model("Messages", MessageSchema);
