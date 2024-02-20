@@ -48,7 +48,7 @@ export const GetMessages = async (req, res, next) => {
 export const getProviderMessages = async (req, res, next) => {
   // Destructure to get id directly from req.params
   const { id } = req.params;
-  console.log(id);
+  // console.log(id);
 
   try {
     // Finding messages by provider ID
