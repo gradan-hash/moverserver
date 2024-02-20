@@ -27,8 +27,30 @@ export const createMessage = async (req, res, next) => {
   }
 };
 
+export const updateReplyMessage = async (req, res, next) => {
+  console.log(req.body);
+  const { uniqueid, replyMessage } = req.body;
+
+  try {
+    const updatedMessage = await Messages.findOneAndUpdate(
+      { uniqueid: uniqueid },
+      { $set: { replyMessage: replyMessage } }, // Update operation
+      { new: true } // Options to return the updated document
+    );
+
+    if (updatedMessage) {
+      // If the message was successfully updated, respond with the updated message
+      res.status(200).json(updatedMessage);
+    } else {
+      res.status(404).send("Message not found");
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const GetMessages = async (req, res, next) => {
-  console.log(req.params.id);
+  // console.log(req.params.id);
   try {
     // Use findOne to search for messages by uniqueid field
     const allmessages = await Messages.find({ uniqueid: req.params.id });

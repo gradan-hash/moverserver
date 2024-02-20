@@ -17,11 +17,12 @@ const MesssageSchema = new Schema(
     },
     message: {
       type: String,
-      required: true,
+    },
+    replymesssage: {
+      type: String,
     },
     sender: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true }
