@@ -1,12 +1,16 @@
-import Trips from "../../models/clients/Trips";
+import Trips from "../../models/clients/Trips.js";
 import Items from "../../models/providers/Provideritems.js";
 import Provider from "../../models/providers/Providers.js";
 import createError from "../../utils/createError.js";
-import user from "../../models/clients/Users";
+import user from "../../models/clients/Users.js";
+
 export const createTrip = async (req, res, next) => {
-  console.log(req.body);
+  console.log(req.body.usernameid);
+
   const newTrips = new Trips({
-    ...req.body,
+    usernameid: req.body.usernameid,
+    itemid: req.body.itemid,
+    providerid: req.body.provideridd,
   });
 
   try {
@@ -46,33 +50,34 @@ export const singleTrip = async (req, res, next) => {
   }
 };
 
-
 export const getAllTrips = async (req, res, next) => {
   try {
     // Fetch all trips from the database
     const trips = await Trips.find({});
-    
+
     // Use Promise.all to fetch all related details concurrently
-    const tripsWithDetails = await Promise.all(trips.map(async (trip) => {
-      const Providerid = trip.providerid;
-      const Itemid = trip.itemid;
-      const Usernameid = trip.usernameid;
+    const tripsWithDetails = await Promise.all(
+      trips.map(async (trip) => {
+        const Providerid = trip.providerid;
+        const Itemid = trip.itemid;
+        const Usernameid = trip.usernameid;
 
-      // Fetch provider, item, and user details concurrently for each trip
-      const [providerdetails, itemdetails, userdetails] = await Promise.all([
-        Provider.findById(Providerid),
-        Items.findById(Itemid),
-        user.findById(Usernameid),
-      ]);
+        // Fetch provider, item, and user details concurrently for each trip
+        const [providerdetails, itemdetails, userdetails] = await Promise.all([
+          Provider.findById(Providerid),
+          Items.findById(Itemid),
+          user.findById(Usernameid),
+        ]);
 
-      // Return a new object combining the trip with its related details
-      return {
-        ...trip.toObject(), // Convert the mongoose document to a plain JavaScript object
-        providerdetails,
-        itemdetails,
-        userdetails,
-      };
-    }));
+        // Return a new object combining the trip with its related details
+        return {
+          ...trip.toObject(), // Convert the mongoose document to a plain JavaScript object
+          providerdetails,
+          itemdetails,
+          userdetails,
+        };
+      })
+    );
 
     res.status(200).json(tripsWithDetails);
   } catch (err) {

@@ -7,6 +7,7 @@ import AuthRoute from "./routes/users/Auth.js";
 import AuthRoutePro from "./routes/providers/Authprovider.js";
 import ItemsRoute from "./routes/providers/Items.js";
 import MessageRoute from "./routes/users/Messages.js";
+import TripsAuthRoute from "./routes/users/Trips.js";
 
 const app = express();
 dotenv.config();
@@ -35,6 +36,7 @@ app.use(cookieParser());
 
 app.use("/api/clients", AuthRoute);
 app.use("/api/clients", MessageRoute);
+app.use("/api/clients",TripsAuthRoute)
 
 //providers
 app.use("/api/providers", AuthRoutePro);

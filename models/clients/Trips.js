@@ -10,7 +10,6 @@ const TripSchema = new Schema(
     itemid: {
       type: String,
       required: true,
-      unique: true,
     },
     providerid: {
       type: String,
@@ -18,7 +17,6 @@ const TripSchema = new Schema(
     },
     rating: {
       type: String,
-      
     },
   },
   { timestamps: true }
