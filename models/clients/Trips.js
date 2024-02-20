@@ -16,6 +16,10 @@ const TripSchema = new Schema(
       type: String,
       required: true,
     },
+    rating: {
+      type: String,
+      
+    },
   },
   { timestamps: true }
 );

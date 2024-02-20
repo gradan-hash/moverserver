@@ -17,6 +17,7 @@ export const createProducts = async (req, res, next) => {
   }
 };
 
+
 export const singleProducts = async (req, res, next) => {
   try {
     const items = await Items.findById(req.params.id);

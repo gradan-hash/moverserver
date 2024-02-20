@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const userSchema = new Schema(
+const ProviderSchema = new Schema(
   {
     companyname: {
       type: String,
@@ -39,4 +39,4 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Provider", userSchema);
+export default mongoose.model("Provider", ProviderSchema);
