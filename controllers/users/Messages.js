@@ -34,7 +34,7 @@ export const createMessage = async (req, res, next) => {
 
 export const updateReplyMessage = async (req, res, next) => {
   const { uniqueid, replyMessage, sender } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const updatedMessage = await Messages.findOneAndUpdate(
       { uniqueid: uniqueid },
