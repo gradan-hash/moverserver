@@ -13,6 +13,6 @@ const router = express.Router();
 router.post("/postmessage", VerifyToken, createMessage);
 router.get("/getmessage/:id", VerifyToken, GetMessages);
 router.get("/providermesages/:id", VerifyToken, getProviderMessages);
-router.get("/replymessage", VerifyToken, updateReplyMessage);
+router.post("/replymessage", VerifyToken, updateReplyMessage);
 
 export default router;

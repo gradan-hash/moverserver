@@ -28,13 +28,13 @@ export const createMessage = async (req, res, next) => {
 };
 
 export const updateReplyMessage = async (req, res, next) => {
-  console.log(req.body);
+  console.log(req.body.uniqueid);
   const { uniqueid, replyMessage } = req.body;
 
   try {
     const updatedMessage = await Messages.findOneAndUpdate(
       { uniqueid: uniqueid },
-      { $set: { replyMessage: replyMessage } }, // Update operation
+      { $set: { replymesssage: replyMessage } }, // Update operation
       { new: true } // Options to return the updated document
     );
 
