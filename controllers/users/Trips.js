@@ -87,7 +87,7 @@ export const getAllTrips = async (req, res, next) => {
 };
 
 export const completeTrip = async (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { tripId, rating, paymentOption } = req.body;
   try {
     const updatedTrip = await Trips.findByIdAndUpdate(
