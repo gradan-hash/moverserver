@@ -73,8 +73,8 @@ export const updateProducts = async (req, res, next) => {
 
 export const searchProducts = async (req, res, next) => {
   try {
-    console.log(req.query);
-    console.log(req.params);
+    // console.log(req.query);
+    // console.log(req.params);
     const { searchTerm } = req.params;
 
     // Check if searchTerm is valid

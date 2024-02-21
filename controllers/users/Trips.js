@@ -5,7 +5,7 @@ import createError from "../../utils/createError.js";
 import user from "../../models/clients/Users.js";
 
 export const createTrip = async (req, res, next) => {
-  console.log(req.body.usernameid);
+  // console.log(req.body.usernameid);
 
   const newTrips = new Trips({
     usernameid: req.body.usernameid,
