@@ -7,7 +7,9 @@ import {
   getAllCompletedTrips,
   getAllPendingTrips,
   getAllTrips,
+  getUnconfirmedTrips,
   singleTrip,
+  updatependingTrip,
 } from "../../controllers/users/Trips.js";
 const router = express.Router();
 
@@ -18,4 +20,6 @@ router.get("/getAllTrips", VerifyToken, getAllTrips);
 router.post("/completeTrip", VerifyToken, completeTrip);
 router.get("/getAllCompletedTrips", VerifyToken, getAllCompletedTrips);
 router.get("/getAllPendingTrips", VerifyToken, getAllPendingTrips);
+router.post("/updatependingTrip", VerifyToken, updatependingTrip);
+router.get("/getUnconfirmedTrips", VerifyToken, getUnconfirmedTrips);
 export default router;

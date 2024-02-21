@@ -24,7 +24,7 @@ const TripSchema = new Schema(
     status: {
       type: String,
       required: true,
-      default: "pending", 
+      default: "unconfirmed", 
     },
   },
   { timestamps: true }

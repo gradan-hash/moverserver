@@ -105,6 +105,23 @@ export const completeTrip = async (req, res, next) => {
   }
 };
 
+export const updatependingTrip = async (req, res, next) => {
+  // console.log(req.body);
+  const { tripId } = req.body;
+  try {
+    const updatedTrip = await Trips.findByIdAndUpdate(
+      tripId,
+      {
+        status: "pending",
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedTrip);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getAllPendingTrips = async (req, res, next) => {
   try {
     const trips = await Trips.find({ status: "pending" });
@@ -160,5 +177,33 @@ export const getAllCompletedTrips = async (req, res, next) => {
     next(
       createError(500, "Failed to fetch completed trips and their details.")
     );
+  }
+};
+
+export const getUnconfirmedTrips = async (req, res, next) => {
+  try {
+    const trips = await Trips.find({ status: "unconfirmed" });
+
+    const tripsWithDetails = await Promise.all(
+      trips.map(async (trip) => {
+        // The same logic as before to fetch related details
+        const [providerdetails, itemdetails, userdetails] = await Promise.all([
+          Provider.findById(trip.providerid),
+          Items.findById(trip.itemid),
+          user.findById(trip.usernameid),
+        ]);
+
+        return {
+          ...trip.toObject(),
+          providerdetails,
+          itemdetails,
+          userdetails,
+        };
+      })
+    );
+
+    res.status(200).json(tripsWithDetails);
+  } catch (err) {
+    next(createError(500, "Failed to fetch pending trips and their details."));
   }
 };
