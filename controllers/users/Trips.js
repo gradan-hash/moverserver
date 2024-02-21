@@ -84,3 +84,5 @@ export const getAllTrips = async (req, res, next) => {
     next(createError(500, "Failed to fetch trips and their details."));
   }
 };
+
+
