@@ -18,6 +18,14 @@ const TripSchema = new Schema(
     rating: {
       type: String,
     },
+    paymentoption: {
+      type: String,
+    },
+    status: {
+      type: String,
+      required: true,
+      default: "pending", 
+    },
   },
   { timestamps: true }
 );

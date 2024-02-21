@@ -39,6 +39,7 @@ export const singleTrip = async (req, res, next) => {
 
     // Combining trips and providerdetails into a single response object
     const response = {
+      ...trips.toObject(),
       userdetails,
       itemdetails,
       providerdetails,
@@ -85,4 +86,21 @@ export const getAllTrips = async (req, res, next) => {
   }
 };
 
-
+export const completeTrip = async (req, res, next) => {
+  console.log(req.body);
+  const { tripId, rating, paymentOption } = req.body;
+  try {
+    const updatedTrip = await Trips.findByIdAndUpdate(
+      tripId,
+      {
+        rating: rating,
+        paymentoption: paymentOption,
+        status: "completed",
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedTrip);
+  } catch (err) {
+    next(err);
+  }
+};

@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const CompletedSchema = new Schema(
   {
-    usernameid: {
+    tableid: {
       type: String,
       required: true,
     },
