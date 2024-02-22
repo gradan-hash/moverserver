@@ -150,6 +150,7 @@ export const getAllPendingTrips = async (req, res, next) => {
   }
 };
 
+
 export const getAllCompletedTrips = async (req, res, next) => {
   try {
     const trips = await Trips.find({ status: "completed" });
