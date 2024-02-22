@@ -172,7 +172,22 @@ export const getAllCompletedTrips = async (req, res, next) => {
       })
     );
 
-    res.status(200).json(tripsWithDetails);
+    // Categorize trips based on the serviceType
+    const categorizedTrips = {
+      moving: [],
+      storage: [],
+      both: [],
+    };
+
+    tripsWithDetails.forEach((trip) => {
+      const serviceType = trip.itemdetails.serviceType;
+      // Assuming serviceType strictly matches 'moving', 'storage', or 'both'
+      if (categorizedTrips[serviceType]) {
+        categorizedTrips[serviceType].push(trip);
+      }
+    });
+
+    res.status(200).json(categorizedTrips);
   } catch (err) {
     next(
       createError(500, "Failed to fetch completed trips and their details.")
