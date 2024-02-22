@@ -106,7 +106,7 @@ export const completeTrip = async (req, res, next) => {
 };
 
 export const UpdatependingTrip = async (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { tripId } = req.body;
   try {
     const updatedTrip = await Trips.findByIdAndUpdate(
